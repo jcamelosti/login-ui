@@ -9,3 +9,8 @@ final Client client = InterceptedClient.build(
 
 const String baseUrl = 'https://odontoapi.josuecamelo.com/';
 
+class HttpException implements Exception {
+  final String? message;
+
+  HttpException(this.message);
+}

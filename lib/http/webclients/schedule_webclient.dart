@@ -5,7 +5,8 @@ import 'package:login_ui/models/schedule.dart';
 
 class ScheduleWebClient {
   final endPoint = Uri.parse("$baseUrl/schedule");
-  static final Map<int, String> _statusCodeResponses = {
+
+  final Map<int, String> _statusCodeResponses = {
     400: 'there was an error submitting transaction',
     401: 'authentication failed',
     409: 'transaction already exists',
@@ -46,10 +47,4 @@ class ScheduleWebClient {
     }
     return 'unknown error';
   }
-}
-
-class HttpException implements Exception {
-  final String? message;
-
-  HttpException(this.message);
 }
