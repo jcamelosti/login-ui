@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_ui/screens/home_page.dart';
 
 class LoginDemo extends StatefulWidget {
   const LoginDemo({Key? key}) : super(key: key);
@@ -60,8 +61,11 @@ class _LoginDemoState extends State<LoginDemo> {
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.login, size: 18),
-                label: const Text('Login'),
-                onPressed: () {},
+                label: const Text('Login', style: TextStyle(color: Colors.white, fontSize: 25),),
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => const HomePage()));
+                },
               ),
             ),
             const SizedBox(
