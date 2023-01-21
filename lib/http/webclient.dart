@@ -7,7 +7,7 @@ final Client client = InterceptedClient.build(
   requestTimeout: const Duration(seconds: 5),
 );
 
-const String baseUrl = 'https://odontoapi.josuecamelo.com/';
+const String baseUrl = 'https://odontoapi.josuecamelo.com/api';
 
 class HttpException implements Exception {
   final String? message;

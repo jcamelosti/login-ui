@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:login_ui/http/webclient.dart';
 import 'package:login_ui/models/schedule.dart';
+import 'package:flutter/material.dart';
 
 class ScheduleWebClient {
-  final endPoint = Uri.parse("$baseUrl/schedule");
+  final endPoint = Uri.parse("$baseUrl/schedule/");
 
   final Map<int, String> _statusCodeResponses = {
     400: 'there was an error submitting transaction',
@@ -14,12 +15,20 @@ class ScheduleWebClient {
   };
 
   Future<List<Schedule>> findAll() async {
-    final Response response =
-    await client.get(endPoint);
-    final List<dynamic> decodedJson = jsonDecode(response.body);
+    final Response response = await client.get(endPoint, headers: {
+      'Content-type': 'application/json',
+      'Authorization': "Bearer 58|WePJ1reXhlAMD2hXd374mPqVl7lP7GxcVItinulT",
+    },);
+    /*final List<dynamic> decodedJson = jsonDecode(response.body);
+    debugPrint(decodedJson.toString());
     return decodedJson
         .map((dynamic json) => Schedule.fromJson(json))
-        .toList();
+        .toList();*/
+    /*final Map<String, dynamic> parsed = json.decode(response.body);
+    var data = json.decode(parsed['data']);
+
+    debugPrint(data);*/
+    return [];
   }
 
   Future<Schedule> save(Schedule schedule, String password) async {
