@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_ui/components/progress.dart';
 import 'package:login_ui/http/webclients/schedule_webclient.dart';
 import 'package:login_ui/models/schedule.dart';
+import 'package:login_ui/models/schedule_api_result.dart';
 
 import '../components/centered_message.dart';
 
@@ -16,8 +17,8 @@ class SchedulesList extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Schedules'),
       ),
-      body: FutureBuilder<List<Schedule>>(
-        future: _webClient.findAll(),
+      body: FutureBuilder(
+        future: _webClient.getSchedules(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -29,9 +30,12 @@ class SchedulesList extends StatelessWidget {
               break;
             case ConnectionState.done:
               if(snapshot.hasData){
-                final List<Schedule>? schedules = snapshot.data;
-                if (schedules!.isNotEmpty) {
-                  return ListView.builder(
+                final ScheduleApiResult? reg = snapshot.data;
+                print(reg.toString());
+                /*if (schedules!.isNotEmpty) {
+                  print("tem dados");*/
+
+                  /*return ListView.builder(
                     itemBuilder: (context, index) {
                       final Schedule schedule = schedules[index];
                       return Card(
@@ -54,8 +58,8 @@ class SchedulesList extends StatelessWidget {
                       );
                     },
                     itemCount: schedules.length,
-                  );
-                }
+                  );*/
+                //}
               }
               return CenteredMessage(
                 'No Schedules found',

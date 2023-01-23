@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:convert' as convert;
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:login_ui/http/webclient.dart';
 import 'package:login_ui/models/schedule.dart';
-import 'package:flutter/material.dart';
+import 'package:login_ui/models/schedule_api_result.dart';
+import 'package:login_ui/utils/http_helper.dart' as http;
 
 class ScheduleWebClient {
   final endPoint = Uri.parse("$baseUrl/schedule/");
@@ -13,6 +16,14 @@ class ScheduleWebClient {
     409: 'transaction already exists',
     422: 'unprocessable Entity',
   };
+
+  Future<ScheduleApiResult> getSchedules() async {
+    var url =  Uri.parse("$baseUrl/schedule/");
+    var response = await http.get(url);
+
+    String json = utf8.decode(response.bodyBytes);
+    return ScheduleApiResult.fromJson(convert.json.decode(json));
+  }
 
   Future<List<Schedule>> findAll() async {
     List<Schedule>? schedules = <Schedule>[];
@@ -25,7 +36,7 @@ class ScheduleWebClient {
 
     final parsedJson = jsonDecode(response.body);
     //print('${parsedJson.runtimeType} : $parsedJson');
-    final schedulesData = parsedJson['data'] as List<dynamic>?;
+    //final schedulesData = parsedJson['data'] as List<dynamic>?;
 
     /*// if the reviews are not missing
     final reviews = reviewsData != null
@@ -44,7 +55,7 @@ class ScheduleWebClient {
     //schedules = schedulesData?.map((e) => Schedule.fromJson(e)).toList();
     //debugPrint(schedules.toString());
 
-    return <Schedule>[
+    /*return <Schedule>[
       Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
       Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
       Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
@@ -53,8 +64,9 @@ class ScheduleWebClient {
       Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
       Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
       Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste")
-    ];
+    ];*/
     //return !schedules.isNotEmpty ? schedules : <Schedule>[];
+    return <Schedule>[];
   }
 
   Future<Schedule> save(Schedule schedule, String password) async {

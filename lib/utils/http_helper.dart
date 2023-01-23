@@ -26,12 +26,12 @@ Future<http.Response> delete(Uri url) async {
 }
 
 Future<Map<String, String>> _headers() async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  final apiData = sharedPreferences.getString('authtoken');
+  /*SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  final apiData = sharedPreferences.getString('authtoken');*/
 
   Map<String, String> headers = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer $apiData"
+    "Authorization": " Bearer 58|WePJ1reXhlAMD2hXd374mPqVl7lP7GxcVItinulT"
   };
   return headers;
 }

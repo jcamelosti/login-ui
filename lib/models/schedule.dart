@@ -72,8 +72,7 @@ class Schedule extends Entity {
   String? createdAt;
   String? updatedAt;
 
-  Schedule({
-    this.id,
+  Schedule(this.id,
     this.customer,
     this.phone,
     this.date,
@@ -82,7 +81,21 @@ class Schedule extends Entity {
     this.obs,
     this.createdAt,
     this.updatedAt
-  });
+  );
+
+  factory Schedule.fromJson(Map<String, dynamic> json){
+    return Schedule(
+        json['id'],
+        json['customer'],
+        json['phone'],
+        json['date'],
+        json['time'],
+        json['status'],
+        json['obs'],
+        json['createdAt'],
+        json['updatedAt'],
+    );
+  }
 
   Schedule.fromMap(Map<String, dynamic> map) {
     id = map['id'];
@@ -117,6 +130,7 @@ class Schedule extends Entity {
     return json;
   }
 
+  @override
   String toString() {
     return 'Schedule {id: $id, customer: $customer, status: $status, created_at: $createdAt, updated_at: $updatedAt}';
   }
