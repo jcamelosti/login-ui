@@ -15,20 +15,46 @@ class ScheduleWebClient {
   };
 
   Future<List<Schedule>> findAll() async {
+    List<Schedule>? schedules = <Schedule>[];
+    await Future.delayed(const Duration(seconds: 2));
+
     final Response response = await client.get(endPoint, headers: {
       'Content-type': 'application/json',
       'Authorization': "Bearer 58|WePJ1reXhlAMD2hXd374mPqVl7lP7GxcVItinulT",
     },);
-    /*final List<dynamic> decodedJson = jsonDecode(response.body);
-    debugPrint(decodedJson.toString());
-    return decodedJson
-        .map((dynamic json) => Schedule.fromJson(json))
-        .toList();*/
-    /*final Map<String, dynamic> parsed = json.decode(response.body);
-    var data = json.decode(parsed['data']);
 
-    debugPrint(data);*/
-    return [];
+    final parsedJson = jsonDecode(response.body);
+    //print('${parsedJson.runtimeType} : $parsedJson');
+    final schedulesData = parsedJson['data'] as List<dynamic>?;
+
+    /*// if the reviews are not missing
+    final reviews = reviewsData != null
+    // map each review to a Review object
+        ? reviewsData.map((reviewData) => Schedule.fromJson(reviewData))
+    // map() returns an Iterable so we convert it to a List
+        .toList()
+    // use an empty list as fallback value
+        : <Schedule>[];*/
+
+    //debugPrint(schedulesData.toString());
+
+    //Iterable list = parsedJson['data'] as List<dynamic>?;
+    //schedules = list.map((model) => Schedule.fromJson(model)).toList();
+
+    //schedules = schedulesData?.map((e) => Schedule.fromJson(e)).toList();
+    //debugPrint(schedules.toString());
+
+    return <Schedule>[
+      Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
+      Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
+      Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
+      Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
+      Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
+      Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
+      Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste"),
+      Schedule("1", "teste", "teste", "24/01/2022", "08:00:00", "agendado","teste")
+    ];
+    //return !schedules.isNotEmpty ? schedules : <Schedule>[];
   }
 
   Future<Schedule> save(Schedule schedule, String password) async {
