@@ -27,16 +27,13 @@ class ScheduleApiResult extends Entity {
     return data;
   }
 
-  factory ScheduleApiResult.fromJson(Map<String, dynamic> json){
+  ScheduleApiResult.fromJson(Map<dynamic, dynamic> json){
     List<Schedule> scheduleList = List<Schedule>.from(
         json['data'].map((i) => Schedule.fromJson(i))
     );
-
-    return ScheduleApiResult(
-      success: json['sucess'],
-      data: scheduleList,
-      message: json['message'],
-    );
+    success = json['success'];
+    data = scheduleList;
+    message = json['message'];
   }
 
   @override
