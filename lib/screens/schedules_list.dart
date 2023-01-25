@@ -31,14 +31,13 @@ class SchedulesList extends StatelessWidget {
             case ConnectionState.done:
               if(snapshot.hasData){
                 final List<Schedule>? schedules = snapshot.data;
-                print(schedules);
                 if (schedules!.isNotEmpty) {
                   return ListView.builder(
                     itemBuilder: (context, index) {
                       final Schedule schedule = schedules[index];
                       return Card(
                         child: ListTile(
-                          leading: const Icon(Icons.monetization_on),
+                          leading: const Icon(Icons.person),
                           title: Text(
                             schedule.customer.toString(),
                             style: const TextStyle(

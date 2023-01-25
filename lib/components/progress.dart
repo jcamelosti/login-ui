@@ -4,7 +4,7 @@ class Progress extends StatelessWidget {
   final String message;
 
   Progress({
-    this.message = 'Loading',
+    this.message = 'Carregando Dados...',
   });
 
   @override
@@ -14,12 +14,12 @@ class Progress extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          CircularProgressIndicator(),
+          const CircularProgressIndicator(),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(
               message,
-              style: TextStyle(fontSize: 16.0),
+              style: const TextStyle(fontSize: 16.0),
             ),
           ),
         ],
@@ -29,14 +29,16 @@ class Progress extends StatelessWidget {
 }
 
 class ProgressView extends StatelessWidget {
+  const ProgressView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Processing...'),
+        title: const Text('Processando...'),
       ),
       body: Progress(
-        message: 'Sending...',
+        message: 'Enviando Requisição...',
       ),
     );
   }

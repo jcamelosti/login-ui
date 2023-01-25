@@ -40,7 +40,7 @@ class ScheduleWebClient {
 
     ScheduleApiResult res = ScheduleApiResult.fromJson(mapResponse);
     schedules.addAll(res.data);
-
+    print("data opk");
     return schedules.isNotEmpty ? schedules : <Schedule>[];
   }
 
