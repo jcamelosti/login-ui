@@ -17,7 +17,7 @@ class SchedulesList extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Schedules'),
       ),
-      body: FutureBuilder<List<Schedule>>(
+      body: FutureBuilder<List<Schedule>?>(
         future: _webClient.listar(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {

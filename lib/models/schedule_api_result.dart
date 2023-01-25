@@ -7,9 +7,9 @@ class ScheduleApiResult extends Entity {
   //late final int totalResults;
   //late final int totalPages;
 
-  late final String success;
-  late final List<Schedule> data;
-  late final String message;
+  bool success;
+  List<Schedule> data;
+  String message;
 
   ScheduleApiResult({
     required this.success,
@@ -27,13 +27,24 @@ class ScheduleApiResult extends Entity {
     return data;
   }
 
-  ScheduleApiResult.fromJson(Map<dynamic, dynamic> json){
+  /*ScheduleApiResult.fromJson(Map<dynamic, dynamic> json){
     List<Schedule> scheduleList = List<Schedule>.from(
         json['data'].map((i) => Schedule.fromJson(i))
     );
     success = json['success'];
     data = scheduleList;
     message = json['message'];
+  }*/
+
+  factory ScheduleApiResult.fromJson(dynamic json) {
+    List<Schedule> schedulesList = List<Schedule>.from(
+        json['data'].map((i) => Schedule.fromJson(i))
+    );
+    return ScheduleApiResult(
+        success: json["success"],
+        data: schedulesList,
+        message: json["message"],
+    );
   }
 
   @override

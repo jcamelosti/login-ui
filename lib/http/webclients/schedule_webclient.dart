@@ -18,7 +18,7 @@ class ScheduleWebClient {
   };
 
   Future<ScheduleApiResult> getSchedules() async {
-    var url =  Uri.parse("$baseUrl/schedule/");
+    var url = Uri.parse("$baseUrl/schedule/");
     await Future.delayed(const Duration(seconds: 2));
 
     var response = await http.get(url);
@@ -28,41 +28,33 @@ class ScheduleWebClient {
     return ScheduleApiResult.fromJson(convert.json.decode(json));
   }
 
-  Future<List<Schedule>> listar() async {
+  Future<List<Schedule>?> listar() async {
     List<Schedule>? schedules = <Schedule>[];
-    var url =  Uri.parse("$baseUrl/schedule/");
+    var url = Uri.parse("$baseUrl/schedule/");
 
     await Future.delayed(const Duration(seconds: 2));
 
-   var response = await http.get(url);
-
-    /*String json = jsonEncode(response.body);
-    print(json.toString());
-
-    ScheduleApiResult res = ScheduleApiResult.fromJson(jsonDecode(json));
-    print(res.toString());*/
-
-    //String json = utf8.decode(response.bodyBytes);
-    //print(ScheduleApiResult.fromJson(convert.json.decode(json)));
+    var response = await http.get(url);
 
     Map mapResponse = json.decode(response.body);
-    final result = ScheduleApiResult.fromJson(mapResponse);
 
-    schedules = result.data;
+    ScheduleApiResult res = ScheduleApiResult.fromJson(mapResponse);
+    schedules.addAll(res.data);
 
-    print(schedules);
-
-    return !schedules.isNotEmpty ? schedules : <Schedule>[];
+    return schedules.isNotEmpty ? schedules : <Schedule>[];
   }
 
   Future<List<Schedule>> findAll() async {
     List<Schedule>? schedules = <Schedule>[];
     await Future.delayed(const Duration(seconds: 2));
 
-    final Response response = await client.get(endPoint, headers: {
-      'Content-type': 'application/json',
-      'Authorization': "Bearer 58|WePJ1reXhlAMD2hXd374mPqVl7lP7GxcVItinulT",
-    },);
+    final Response response = await client.get(
+      endPoint,
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer 58|WePJ1reXhlAMD2hXd374mPqVl7lP7GxcVItinulT",
+      },
+    );
 
     final parsedJson = jsonDecode(response.body);
     //print('${parsedJson.runtimeType} : $parsedJson');
@@ -104,7 +96,7 @@ class ScheduleWebClient {
 
     await Future.delayed(const Duration(seconds: 2));
 
-    final Response response = await client.post(endPoint ,
+    final Response response = await client.post(endPoint,
         headers: {
           'Content-type': 'application/json',
           'password': password,
@@ -119,7 +111,7 @@ class ScheduleWebClient {
   }
 
   String? _getMessage(int statusCode) {
-    if(_statusCodeResponses.containsKey(statusCode)){
+    if (_statusCodeResponses.containsKey(statusCode)) {
       return _statusCodeResponses[statusCode];
     }
     return 'unknown error';
